@@ -1,12 +1,22 @@
 doctype html
-html.h-100
+html class='h-100'
   head
-    title
-      | StackOverflow2.0
-    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    title QNA
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-  body
-    = yield
+
+  body class='d-flex flex-column h-100'
+    header
+      = render partial: 'layouts/navbar'
+
+    .main.mt-5
+      .container
+        .row
+          .col
+            .flash
+              = render partial: 'shared/flash'
+            = yield
+
+    = render partial: 'layouts/footer'
