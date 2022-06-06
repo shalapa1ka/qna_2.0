@@ -1,1 +1,3 @@
-Rails.backtrace_cleaner.remove_silencers! if ENV["BACKTRACE"]
+# frozen_string_literal: true
+
+Rails.backtrace_cleaner.remove_silencers! if ENV['BACKTRACE']
