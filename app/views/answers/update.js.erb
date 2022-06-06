@@ -1,0 +1,8 @@
+var error_block = $('.answer-errors')
+<% if @answer.errors.present? %>
+  error_block.html("<% @answer.errors.full_messages.each do |message| %> <div class='alert alert-danger'>  <%= j message %> </div> <% end %>");
+<% else %>
+  error_block.html('');
+  $('.flash').html('<%= j render partial: 'shared/flash' %>')
+  $(".<%= dom_id(@answer) %>").replaceWith('<%= j render partial: 'answers/answer', locals: { answer: @answer } %>');
+<% end %>

@@ -1,0 +1,6 @@
+<% @question.answers.each do |answer| %>
+  $('.<%= dom_id(answer) %>').replaceWith('<%= j render partial: 'answers/answer', locals: {answer: answer} %>');
+<% end %>
+$('.<%= dom_id(@answer) %>').remove();
+$('.answers').prepend('<%= j render partial: 'answers/answer', locals: {answer: @answer} %>');
+$('.flash').html('<%= j render partial: 'shared/flash' %>');

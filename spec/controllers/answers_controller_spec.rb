@@ -14,31 +14,6 @@ describe AnswersController, type: :controller do
     sign_in user
   end
 
-  describe 'GET #edit' do
-    before { get :edit, params: { id: answer, question_id: question } }
-    it 'assings the requested question to @question' do
-      expect(assigns(:answer)).to eq answer
-    end
-
-    it { should render_template :edit }
-
-    context 'not owner' do
-      it 'get a edit view' do
-        sign_in other_user
-        get :edit, params: { id: answer, question_id: question }
-        expect(request).to_not render_template :edit
-      end
-    end
-
-    context 'admin' do
-      it 'get a edit view' do
-        sign_in admin
-        get :edit, params: { id: answer, question_id: question }
-        expect(request).to render_template :edit
-      end
-    end
-  end
-
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'saves the new answer in the database' do

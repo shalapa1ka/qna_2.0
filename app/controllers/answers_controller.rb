@@ -14,22 +14,12 @@ class AnswersController < ApplicationController
     @answer = current_user.answers.build(answer_params)
     @answer.question_id = params[:question_id]
 
-    if @answer.save
-      respond_to do |format|
-        format.html { redirect_to @question, notice: 'Answer successfully created!' }
-        format.turbo_stream { flash.now[:notice] = 'Answer successfully created!' }
-      end
-    else
-      render :new
-    end
+    flash[:notice] = 'Answer successfully created!' if @answer.save
   end
 
   def update
     if @answer.update(answer_params)
-      respond_to do |format|
-        format.html { redirect_to @question, notice: 'Answer successfully edited!' }
-        format.turbo_stream { flash.now[:notice] = 'Answer successfully edited!' }
-      end
+      flash[:notice] = 'Answer successfully edited!'
     else
       render :edit
     end
@@ -38,18 +28,11 @@ class AnswersController < ApplicationController
   def set_best
     @best_answer.update(best: false)
     @answer.update(best: true)
-    respond_to do |format|
-      format.html { redirect_to @question, notice: 'Best answer successfully selected!' }
-      format.turbo_stream { flash.now[:notice] = 'Best answer successfully selected!' }
-    end
+    flash[:notice] = 'Best answer successfully selected!'
   end
 
   def destroy
-    @answer.destroy
-    respond_to do |format|
-      format.html { redirect_to @question, notice: 'Answer successfully deleted!' }
-      format.turbo_stream { flash.now[:notice] = 'Answer successfully deleted!' }
-    end
+    flash[:notice] = 'Answer successfully deleted!' if @answer.destroy
   end
 
   private
@@ -67,7 +50,7 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :user_id, attachment_attributes: [:file])
+    params.require(:answer).permit(:body, :user_id)
   end
 
   def authorize_answer!

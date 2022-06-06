@@ -12,59 +12,25 @@ class QuestionsController < ApplicationController
 
   def show
     @pagy, @answers = pagy @question.answers
-    @answer = Answer.new
-    @answer.attachments.build
   end
 
   def new
     @question = current_user.questions.new
-    @question.attachments.build
   end
 
   def edit; end
 
   def create
     @question = current_user.questions.build question_params
-
-    if @question.save
-      respond_to do |format|
-        format.html do
-          flash[:notice] = 'Question successfully created!'
-          redirect_to @question
-        end
-
-        format.turbo_stream { flash.now[:notice] = 'Question successfully created!' }
-      end
-    else
-      render :new
-    end
+    flash[:notice] = 'Question successfully created!' if @question.save
   end
 
   def update
-    if @question.update(question_params)
-      respond_to do |format|
-        format.html do
-          flash[:notice] = 'Question successfully updated!'
-          redirect_to @question
-        end
-
-        format.turbo_stream { flash.now[:notice] = 'Question successfully updated!' }
-      end
-    else
-      render :edit
-    end
+    flash[:notice] = 'Question successfully updated!' if @question.update(question_params)
   end
 
   def destroy
-    @question.destroy
-    respond_to do |format|
-      format.html do
-        flash[:notice] = 'Question successfully deleted!'
-        redirect_to questions_path
-      end
-
-      format.turbo_stream { flash.now[:notice] = 'Question successfully deleted!' }
-    end
+    flash[:notice] = 'Question successfully deleted!' if @question.destroy
   end
 
   private
@@ -74,7 +40,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, attachment_attributes: [:file])
+    params.require(:question).permit(:title, :body)
   end
 
   def authorize_question!
