@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SignInMacros
-  def sing_in_user(user)
+  def sign_in_user(user)
     visit new_user_session_path
     within('.new_user') do
       fill_in 'Email', with: user.email

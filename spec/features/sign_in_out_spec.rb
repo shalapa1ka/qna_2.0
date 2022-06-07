@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-feature 'Sign in \ Sing out', js: true do
+feature 'Sign in \ sign out', js: true do
   given(:user) { create :user }
 
   scenario 'Signing in with correct credentials' do
-    sing_in_user user
+    sign_in_user user
     expect(page).to have_content 'Signed in successfully.'
   end
 
@@ -24,7 +24,7 @@ feature 'Sign in \ Sing out', js: true do
   end
 
   scenario 'Signing out' do
-    sing_in_user user
+    sign_in_user user
     expect(page).to have_content 'Signed in successfully.'
     click_on 'Sign out'
     expect(page).to have_content 'You need to sign in or sign up before continuing.'

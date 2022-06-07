@@ -10,7 +10,7 @@ feature 'CRUD test for answer', js: true do
   given(:answer) { create :answer, user: user, question: question }
 
   scenario 'Signed in user creating\updating\deleting answer' do
-    sing_in_user user
+    sign_in_user user
     expect(page).to have_content 'Signed in successfully.'
 
     visit question_path(question)
@@ -27,13 +27,13 @@ feature 'CRUD test for answer', js: true do
   end
 
   scenario 'User try to edit or delete not his answer' do
-    sing_in_user other_user
+    sign_in_user other_user
     visit edit_question_answer_path(question, answer)
     expect(page).to have_content 'You are not authorized to perform this action!'
   end
 
   scenario 'Admin try to edit or delete not his question' do
-    sing_in_user admin
+    sign_in_user admin
     answer
     visit question_path(question)
     edit_answer
