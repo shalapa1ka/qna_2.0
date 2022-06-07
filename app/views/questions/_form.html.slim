@@ -9,4 +9,8 @@
     = form.label 'Tell about your question', for: 'floatingBody'
 
   .form-floating.w-50.mt-2
+    = form.fields_for :attachments do |f|
+      = f.file_field :file
+
+  .form-floating.w-50.mt-2
     = form.submit nil, class: 'btn btn-success my-2'

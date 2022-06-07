@@ -8,6 +8,11 @@ class AnswersController < ApplicationController
   before_action :authorize_answer!
   after_action :verify_authorized
 
+  def new
+    @answer = Answer.new
+    @answer.attachments.build
+  end
+
   def edit; end
 
   def create
@@ -50,7 +55,7 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :user_id)
+    params.require(:answer).permit(:body, :user_id, attachments_attributes: [:file])
   end
 
   def authorize_answer!

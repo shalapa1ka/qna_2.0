@@ -16,6 +16,16 @@ div class="#{dom_id(answer)}"
       .col.pt-2
         span = answer.body
     .row.mb-1
+      .col.pt-2
+        h4 Attachments
+        table.table.table-hover
+          tbody
+            - answer.attachments.each do |attachment|
+              tr class="#{dom_id(attachment)}"
+                td = link_to attachment.file.file.identifier, attachment.file.url
+                td = link_to 'Delete', attachments_destroy_path(attachment_id: attachment),
+                        method: :delete, class: 'btn btn-danger btn-sm', remote: true
+    .row.mb-1
       .col
         - if policy(answer).edit?
           = link_to 'Edit', edit_question_answer_path(@question, answer),

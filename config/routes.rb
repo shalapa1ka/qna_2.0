@@ -8,5 +8,7 @@ Rails.application.routes.draw do
     end
   end
 
+  delete 'attachments/destroy'
+
   root 'questions#index'
 end

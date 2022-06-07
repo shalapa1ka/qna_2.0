@@ -3,8 +3,9 @@ span = @question.body
 
 .row
   .col
+    .answer-errors
     .answer_it
-      = link_to 'Answer it', new_question_answer_path(@question), class: 'btn btn-primary', remote: true
+      = link_to 'Answer it', new_question_answer_path(@question, @answer), class: 'btn btn-primary', remote: true
 .row
   .col
     = link_to 'Back to Questions', questions_path, class: 'btn btn-secondary my-2'

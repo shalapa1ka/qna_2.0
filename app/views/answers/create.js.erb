@@ -1,4 +1,4 @@
-var error_block = $('.item-errors')
+var error_block = $('.answer-errors')
 <% if @answer.errors.present? %>
   error_block.html("<% @answer.errors.full_messages.each do |message| %> <div class='alert alert-danger'>  <%= j message %> </div> <% end %>");
 <% else %>
