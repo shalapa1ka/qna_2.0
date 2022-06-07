@@ -3,7 +3,7 @@ var error_block = $('.item-errors')
   error_block.html("<% @answer.errors.full_messages.each do |message| %> <div class='alert alert-danger'>  <%= j message %> </div> <% end %>");
 <% else %>
   error_block.html('');
-  $('.flash').html('<%= j render partial: 'shared/flash' %>')
+  $('.flash').html('<%= j render partial: 'shared/flash' %>');
   $(".answers").prepend('<%= j render partial: 'answers/answer', locals: { answer: @answer } %>');
 
 <%end %>

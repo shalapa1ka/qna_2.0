@@ -3,7 +3,7 @@
 module EditAnswerMacros
   def edit_answer
     click_on 'Edit'
-    within('#answers') do
+    within('.answers') do
       fill_in 'Answer', with: 'Edited title'
       click_on 'Update Answer'
     end

@@ -1,1 +1,2 @@
-$('.<%= dom_id(@question) %>').replaceWith('<%= j render partial: 'questions/question', locals: { question: @question } %>')
+$('.<%= dom_id(@question) %>').replaceWith('<%= j render partial: 'questions/question', locals: { question: @question } %>');
+$('.flash').html('<%= j render partial: 'shared/flash' %>');

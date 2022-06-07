@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-feature 'choosing best answers for question by different users' do
+feature 'choosing best answers for question by different users', js: true do
   given(:user) { create :user }
   given(:admin) { create :user, :admin }
   given(:question) { create :question, user: user }

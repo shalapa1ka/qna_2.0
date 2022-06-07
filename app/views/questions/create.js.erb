@@ -1,1 +1,2 @@
-$('.questions').prepend('<%= j render partial: 'questions/question', locals: { question: @question }  %>')
+$('.questions').prepend('<%= j render partial: 'questions/question', locals: { question: @question }  %>');
+$('.flash').html('<%= j render partial: 'shared/flash' %>');
