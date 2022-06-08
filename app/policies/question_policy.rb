@@ -20,8 +20,4 @@ class QuestionPolicy < ApplicationPolicy
   def show?
     true
   end
-
-  def set_best_answer?
-    user.admin? || user.author?(record)
-  end
 end
