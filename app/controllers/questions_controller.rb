@@ -2,7 +2,7 @@
 
 class QuestionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_question, only: %i[show edit update destroy]
+  before_action :find_question, only: %i[show edit update destroy vote]
   before_action :authorize_question!
   after_action :verify_authorized
 
@@ -36,6 +36,28 @@ class QuestionsController < ApplicationController
     flash[:notice] = 'Question successfully deleted!' if @question.destroy
   end
 
+  def vote
+    if current_user.voted?(Question.all)
+      flash[:alert] = 'You already voted!'
+    else
+      flash[:notice] = 'You successfully voted!'
+      @question.votes.create vote_params
+    end
+    @questions = Question.all
+  end
+
+  def cancel_vote
+    Question.all.each do |question|
+      if question.votes.where(user_id: current_user).present?
+        @vote = question.votes.where(user_id: current_user).first
+        flash[:notice] = 'You vote successfully canceled!'
+        @vote.destroy
+        break
+      end
+    end
+    @questions = Question.all
+  end
+
   private
 
   def find_question
@@ -44,6 +66,10 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body, attachments_attributes: [:file])
+  end
+
+  def vote_params
+    params.require(:vote).permit(:user_id, :vote)
   end
 
   def authorize_question!

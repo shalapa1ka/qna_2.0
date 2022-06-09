@@ -2,7 +2,7 @@
 
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_answer, only: %i[edit update destroy set_best]
+  before_action :find_answer, only: %i[edit update destroy set_best vote]
   before_action :find_best_answer, only: :set_best
   before_action :find_question
   before_action :authorize_answer!
@@ -40,6 +40,15 @@ class AnswersController < ApplicationController
     flash[:notice] = 'Answer successfully deleted!' if @answer.destroy
   end
 
+  def vote
+    if current_user.voted?(@question.answers)
+      flash[:alert] = 'You already voted!'
+    else
+      flash[:notice] = 'You successfully voted!'
+      @answer.votes.create vote_params
+    end
+  end
+
   private
 
   def find_answer
@@ -52,6 +61,10 @@ class AnswersController < ApplicationController
 
   def find_question
     @question = Question.find(params[:question_id])
+  end
+
+  def vote_params
+    params.require(:vote).permit(:user_id, :vote)
   end
 
   def answer_params

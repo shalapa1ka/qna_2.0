@@ -1,0 +1,2 @@
+$('.flash').html('<%= j render partial: 'shared/flash' %>');
+$('.answers').html('<%= j render partial: 'answers/answer', collection: @question.answers.order_best %>')

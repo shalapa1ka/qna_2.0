@@ -20,4 +20,12 @@ class QuestionPolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def vote?
+    !user.author?(record) && !user.voted?(Question.all)
+  end
+
+  def cancel_vote?
+    user.voted?(Question.all)
+  end
 end

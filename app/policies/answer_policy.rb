@@ -24,4 +24,8 @@ class AnswerPolicy < ApplicationPolicy
   def set_best?
     user.admin? || user.author?(record.question)
   end
+
+  def vote?
+    !user.voted?(record.question.answers)
+  end
 end
