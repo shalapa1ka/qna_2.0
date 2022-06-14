@@ -7,6 +7,7 @@ class AnswersController < ApplicationController
   before_action :find_question
   before_action :authorize_answer!
   after_action :verify_authorized
+  after_action :publish_answer, only: :create
 
   def new
     @answer = Answer.new
@@ -57,6 +58,33 @@ class AnswersController < ApplicationController
   end
 
   private
+
+  def publish_answer
+    return if @answer.errors.any?
+
+    ActionCable.server.broadcast(
+      "question_channel_#{@question.id}",
+      render_answer
+    )
+  end
+
+  # FIXME: rendering same partial for all users
+  def render_answer
+    AnswersController.renderer.instance_variable_set(
+      :@env, {
+        'HTTP_HOST' => 'localhost:3000',
+        'HTTPS' => 'off',
+        'REQUEST_METHOD' => 'GET',
+        'SCRIPT_NAME' => '',
+        'warden' => warden
+      }
+    )
+
+    AnswersController.render(
+      partial: 'answers/answer',
+      locals: { answer: @answer, question: @question }
+    )
+  end
 
   def find_answer
     @answer = Answer.find(params[:id])
