@@ -16,7 +16,7 @@ $(document).on('turbolinks:load', function () {
 
         received(data) {
             $('.answers').prepend(data)
-            console.log('123')
+            $('.flash').html('<div class="alert alert-success" <span> Answer successfully created! </span> </div>');
         }
     });
 })

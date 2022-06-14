@@ -33,12 +33,9 @@ describe QuestionsController do
           post :create, xhr: true, params: { question: attributes_for(:question, title: '') }
         end.to_not change(Question, :count)
       end
-
-      before { post :create, xhr: true, params: { question: attributes_for(:question, title: '') } }
-      it { should render_template :create }
     end
-  end
 
-  # TODO: PATCH #update
-  # TODO: DELETE #destroy
+    # TODO: PATCH #update
+    # TODO: DELETE #destroy
+  end
 end

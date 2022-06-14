@@ -9,6 +9,7 @@ $(document).on('turbolinks:load', function () {
 
         received(data) {
             $('.questions').prepend(data)
+            $('.flash').html('<div class="alert alert-success" <span> Question successfully created! </span> </div>');
         }
     });
 });
