@@ -8,6 +8,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'carrierwave'
 gem 'cocoon'
 gem 'devise'
+gem 'doorkeeper'
 gem 'jbuilder', '~> 2.7'
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'omniauth-google-oauth2'
@@ -26,7 +27,7 @@ gem 'responders'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'factory_bot_rails'
+  gem 'factory_bot'
   gem 'faker'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
@@ -46,6 +47,7 @@ group :test do
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   gem 'shoulda-matchers'
   gem 'webdrivers'
+  gem 'json_spec', '~> 1.1', '>= 1.1.5'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

@@ -8,6 +8,15 @@ class User < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :votes
   has_many :social_auths
+  has_many :access_grants,
+           class_name: 'Doorkeeper::AccessGrant',
+           foreign_key: :resource_owner_id,
+           dependent: :delete_all
+
+  has_many :access_tokens,
+           class_name: 'Doorkeeper::AccessToken',
+           foreign_key: :resource_owner_id,
+           dependent: :delete_all
 
   def author?(obj)
     obj.user == self
