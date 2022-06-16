@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.0.0'
+gem 'active_model_serializers', '~> 0.10.13'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'carrierwave'
 gem 'cocoon'
@@ -48,6 +49,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'webdrivers'
   gem 'json_spec', '~> 1.1', '>= 1.1.5'
+  gem 'database_cleaner-active_record'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

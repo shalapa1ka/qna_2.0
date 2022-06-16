@@ -22,6 +22,9 @@ Rails.application.routes.draw do
       resource :profiles do
         get :me, on: :collection
       end
+      resources :questions, only: %i[index show create] do
+        resources :answers, only: %i[index show create]
+      end
     end
   end
 
