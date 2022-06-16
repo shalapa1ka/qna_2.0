@@ -9,6 +9,8 @@ class Question < ApplicationRecord
 
   accepts_nested_attributes_for :attachments
 
+  after_create :reputation_calculate
+
   scope :ordered, -> { order('updated_at DESC') }
 
   def likes
@@ -17,5 +19,11 @@ class Question < ApplicationRecord
 
   def dislikes
     votes.where(vote: :dislike).count
+  end
+
+  private
+
+  def reputation_calculate
+    Reputation.calculate(self)
   end
 end
