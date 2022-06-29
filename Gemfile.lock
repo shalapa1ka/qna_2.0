@@ -371,6 +371,7 @@ DEPENDENCIES
   json_spec (~> 1.1, >= 1.1.5)
   letter_opener
   listen (~> 3.3)
+  mini_magick
   omniauth-github!
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
