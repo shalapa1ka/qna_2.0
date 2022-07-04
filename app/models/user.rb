@@ -11,12 +11,11 @@ class User < ApplicationRecord
     obj.user == self
   end
 
-  def voted?(objs)
-    objs.each do |obj|
-      if obj.votes.where(user_id: self).present? # TODO: minimize sql "выборку" - one object is enough
-        return true
-      end
+  def voted?(type, parent_id = nil)
+    if type == :Answer
+      votes.where(votesable_type: type, votesable_parent_id: parent_id).any?
+    else
+      votes.where(votesable_type: type).any?
     end
-    false
   end
 end

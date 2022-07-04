@@ -22,10 +22,14 @@ class QuestionPolicy < ApplicationPolicy
   end
 
   def vote?
-    !user.author?(record) && !user.voted?(Question.all)
+    !user.author?(record) && !user.voted?(:Question)
   end
 
   def cancel_vote?
-    user.voted?(Question.all)
+    user.voted?(:Question)
+  end
+
+  def answer_cancel_vote?
+    user.voted?(:Answer, record.id)
   end
 end

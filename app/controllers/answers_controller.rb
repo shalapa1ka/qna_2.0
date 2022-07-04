@@ -41,12 +41,19 @@ class AnswersController < ApplicationController
   end
 
   def vote
-    if current_user.voted?(@question.answers)
+    if current_user.voted?(:Answer, @question.id)
       flash[:alert] = 'You already voted!'
     else
       flash[:notice] = 'You successfully voted!'
       @answer.votes.create vote_params
     end
+  end
+
+  def cancel_vote
+    @vote = current_user.votes.where(votesable_type: :Answer, votesable_parent_id: @question.id).first
+    flash[:notice] = 'You vote successfully canceled!'
+    @vote.destroy
+    @questions = Question.all
   end
 
   private
@@ -64,7 +71,7 @@ class AnswersController < ApplicationController
   end
 
   def vote_params
-    params.require(:vote).permit(:user_id, :vote)
+    params.require(:vote).permit(:user_id, :vote, :votesable_parent_id)
   end
 
   def answer_params

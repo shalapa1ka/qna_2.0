@@ -45,7 +45,8 @@ div class="#{dom_id(answer)}"
                   class: 'btn btn-outline-primary me-2',
                   method: :patch, remote: true
         -if policy(answer).vote?
-          =link_to 'Like', vote_question_answer_path(@question, answer, vote: {vote: :like, user_id: current_user}),
+          =link_to 'Like', vote_question_answer_path(@question, answer,
+                  vote: {vote: :like, user_id: current_user, votesable_parent_id: @question.id}),
                   method: :post, remote: true, class: 'btn btn-outline-success me-2'
           = link_to 'Dislike', vote_question_answer_path(@question, answer, vote: { vote: :dislike, user_id: current_user }),
                   method: :post, remote: true, class: 'btn btn-outline-danger my-2'

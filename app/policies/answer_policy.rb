@@ -26,6 +26,10 @@ class AnswerPolicy < ApplicationPolicy
   end
 
   def vote?
-    !user.voted?(record.question.answers)
+    !user.voted?(:Answer, record.question.id)
+  end
+
+  def cancel_vote?
+    true
   end
 end

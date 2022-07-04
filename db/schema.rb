@@ -69,9 +69,11 @@ ActiveRecord::Schema.define(version: 2022_06_08_083733) do
     t.string "votesable_type"
     t.bigint "votesable_id"
     t.string "vote"
+    t.integer "votesable_parent_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_votes_on_user_id"
+    t.index ["votesable_parent_id"], name: "index_votes_on_votesable_parent_id"
     t.index ["votesable_type", "votesable_id"], name: "index_votes_on_votesable"
   end
 

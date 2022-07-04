@@ -8,6 +8,12 @@ span = @question.body
       = link_to 'Answer it', new_question_answer_path(@question, @answer), class: 'btn btn-primary m-2', remote: true
 .row
   .col
+    .cancel-vote-button
+      - if policy(@question).answer_cancel_vote?
+        = link_to 'Cancel vote', cancel_vote_question_answers_path(@question),
+                remote: true, method: :delete, class: 'btn btn-secondary my-2'
+.row
+  .col
     = link_to 'Back to Questions', questions_path, class: 'btn btn-secondary m-2'
 
 .row

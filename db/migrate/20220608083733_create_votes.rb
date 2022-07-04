@@ -4,6 +4,7 @@ class CreateVotes < ActiveRecord::Migration[6.1]
       t.references :user, index: true
       t.references :votesable, polymorphic: true
       t.string :vote
+      t.integer :votesable_parent_id, index: true
       t.timestamps
     end
   end

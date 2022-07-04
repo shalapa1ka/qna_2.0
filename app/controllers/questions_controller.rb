@@ -37,7 +37,7 @@ class QuestionsController < ApplicationController
   end
 
   def vote
-    if current_user.voted?(Question.all)
+    if current_user.voted?(:Question)
       flash[:alert] = 'You already voted!'
     else
       flash[:notice] = 'You successfully voted!'
@@ -47,14 +47,9 @@ class QuestionsController < ApplicationController
   end
 
   def cancel_vote
-    Question.all.each do |question|
-      if question.votes.where(user_id: current_user).present?
-        @vote = question.votes.where(user_id: current_user).first
-        flash[:notice] = 'You vote successfully canceled!'
-        @vote.destroy
-        break
-      end
-    end
+    @vote = current_user.votes.where(votesable_type: :Question).first
+    flash[:notice] = 'You vote successfully canceled!'
+    @vote.destroy
     @questions = Question.all
   end
 
