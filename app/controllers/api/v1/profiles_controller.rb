@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
-class Api::V1::ProfilesController < Api::V1::BaseController
-  def me
-    respond_with current_resource_owner
+module Api
+  module V1
+    class ProfilesController < Api::V1::BaseController
+      def me
+        respond_with current_resource_owner
+      end
+    end
   end
 end
