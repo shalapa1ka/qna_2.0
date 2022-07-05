@@ -7,4 +7,14 @@ class DispatchMailer < ApplicationMailer
     @questions = Question.where('created_at >= ?', 1.day.ago)
     mail to: user.email
   end
+
+  def update_question_digest(user, question)
+    @question = question
+    mail to: user
+  end
+
+  def new_answer_digest(user, question)
+    @question = question
+    mail to: user
+  end
 end

@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :votes
+  has_many :subscriptions
   has_many :social_auths
   has_many :access_grants,
            class_name: 'Doorkeeper::AccessGrant',

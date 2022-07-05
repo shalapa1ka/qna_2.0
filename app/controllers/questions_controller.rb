@@ -2,7 +2,7 @@
 
 class QuestionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_question, only: %i[show edit update destroy vote]
+  before_action :find_question, except: %i[index new create cancel_vote]
   before_action :authorize_question!
   after_action :verify_authorized
 
@@ -51,6 +51,38 @@ class QuestionsController < ApplicationController
     flash[:notice] = 'You vote successfully canceled!'
     @vote.destroy
     @questions = Question.all
+  end
+
+  def subscribe_update
+    if Subscription.where(user: current_user, question: @question).any?
+      @sb = Subscription.where(user: current_user, question: @question).first
+      @sb.update_question = true
+    else
+      @sb = Subscription.new(user: current_user, question: @question, update_question: true)
+    end
+    redirect_to @question, notice: 'You successfully subscribed from updating question!' if @sb.save
+  end
+
+  def unsubscribe_update
+    @sb = Subscription.where(user: current_user, question: @question).first
+    @sb.update_question = false
+    redirect_to @question, notice: 'You successfully unsubscribed from updating question!' if @sb.save
+  end
+
+  def subscribe_new_answer
+    if Subscription.where(user: current_user, question: @question).any?
+      @sb = Subscription.where(user: current_user, question: @question).first
+      @sb.new_answer = true
+    else
+      @sb = Subscription.new(user: current_user, question: @question, new_answer: true)
+    end
+    redirect_to @question, notice: 'You successfully subscribed from updating question!' if @sb.save
+  end
+
+  def unsubscribe_new_answer
+    @sb = Subscription.where(user: current_user, question: @question).first
+    @sb.new_answer = false
+    redirect_to @question, notice: 'You successfully unsubscribed from updating question!' if @sb.save
   end
 
   private
