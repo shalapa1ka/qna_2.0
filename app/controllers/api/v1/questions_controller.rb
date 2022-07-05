@@ -17,7 +17,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
 
   def find_user
     query = "select resource_owner_id from oauth_access_grants where token = '#{params[:code]}'"
-    user_id = ActiveRecord::Base.connection.execute(query).first["resource_owner_id"]
+    user_id = ActiveRecord::Base.connection.execute(query).first['resource_owner_id']
     @user = User.find(user_id)
   end
 end
