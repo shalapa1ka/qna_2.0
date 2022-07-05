@@ -51,6 +51,12 @@ class User < ApplicationRecord
     user
   end
 
+  def self.send_daily_digest
+    find_each.each do |user|
+      DispatchMailer.digest(user).deliver_later
+    end
+  end
+
   private
 
   def avatar_size_validation
