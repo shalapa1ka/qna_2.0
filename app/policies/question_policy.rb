@@ -42,10 +42,10 @@ class QuestionPolicy < ApplicationPolicy
   end
 
   def subscribe_new_answer?
-    record.subscriptions.where(user: user, new_answer: true).none?
+    record.subscriptions.where(user: user, new_answer: true).none? && user.author?(record)
   end
 
   def unsubscribe_new_answer?
-    !subscribe_new_answer?
+    !subscribe_new_answer? && user.author?(record)
   end
 end
