@@ -10,6 +10,7 @@ gem 'cocoon'
 gem 'devise'
 gem 'jbuilder', '~> 2.7'
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
+gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'pagy'
 gem 'pg', '~> 1.1'
@@ -21,6 +22,7 @@ gem 'sass-rails', '>= 6'
 gem 'slim'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
+gem 'responders'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

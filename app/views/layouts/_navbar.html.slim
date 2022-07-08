@@ -5,6 +5,9 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
       ul.navbar-nav.me-auto.mb-2.mb-md-0
         li.nav-item
           = link_to 'Home', root_path, class: 'nav-link active'
+        -if current_user.try(:admin?)
+          li.nav-item
+            = link_to 'API', oauth_applications_path, class: 'nav-link'
       - if user_signed_in?
         span.text-light.me-3 Hello, #{current_user.name}
         = link_to 'Sign out', destroy_user_session_path,

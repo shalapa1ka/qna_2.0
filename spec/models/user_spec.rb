@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
 
     context 'user already has authorization' do
       it 'returns the user' do
-        user.authorizations.create(provider: 'github', uid: '123456')
+        user.social_auths.create(provider: 'github', uid: '123456')
         expect(User.from_omniauth(auth)).to eq user
       end
     end
@@ -21,18 +21,18 @@ RSpec.describe User, type: :model do
     context 'user has not authorization' do
       context 'user already exists' do
         let(:auth) do
-          OmniAuth::AuthHash.new(provider: 'github', uid: '123456', info: { email: user.email, name: :test })
+          OmniAuth::AuthHash.new(provider: 'github', uid: '123456', info: { email: user.email, name: user.name })
         end
         it 'does not create new user' do
           expect { User.from_omniauth(auth) }.to_not change(User, :count)
         end
 
         it 'creates authorization for user' do
-          expect { User.from_omniauth(auth) }.to change(user.authorizations, :count).by(1)
+          expect { User.from_omniauth(auth) }.to change(user.social_auths, :count).by(1)
         end
 
         it 'creates authorization with provider and uid' do
-          authorization = User.from_omniauth(auth).authorizations.first
+          authorization = User.from_omniauth(auth).social_auths.first
 
           expect(authorization.provider).to eq auth.provider
           expect(authorization.uid).to eq auth.uid
@@ -45,7 +45,7 @@ RSpec.describe User, type: :model do
 
       context 'user does not exist' do
         let(:auth) do
-          OmniAuth::AuthHash.new(provider: 'github', uid: '123456', info: { email: 'new@user.com', name: :test })
+          OmniAuth::AuthHash.new(provider: 'github', uid: '123456', info: { email: 'new@user.com', name: user.name })
         end
 
         it 'creates new user' do
@@ -63,11 +63,11 @@ RSpec.describe User, type: :model do
 
         it 'creates authorization for user' do
           user = User.from_omniauth(auth)
-          expect(user.authorizations).to_not be_empty
+          expect(user.social_auths).to_not be_empty
         end
 
         it 'creates authorization with provider and uid' do
-          authorization = User.from_omniauth(auth).authorizations.first
+          authorization = User.from_omniauth(auth).social_auths.first
 
           expect(authorization.provider).to eq auth.provider
           expect(authorization.uid).to eq auth.uid
