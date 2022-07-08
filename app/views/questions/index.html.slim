@@ -4,9 +4,16 @@ h1 All Questions
   .col class='mb-2'
     .question-form
       = link_to 'Ask something', new_question_path, class: 'btn btn-outline-primary my-2', remote: true
-
+.row
+  .col
+    .cancel-vote-button
+      - if policy(Question).cancel_vote?
+        = link_to 'Cancel vote', cancel_vote_questions_path,
+                remote: true, method: :delete, class: 'btn btn-secondary my-2'
+.row
+  .col
     == pagy_bootstrap_nav(@pagy)
     .questions
-      = render @questions
+      = render partial: 'questions/question', collection: @questions
     == pagy_bootstrap_nav(@pagy)
 

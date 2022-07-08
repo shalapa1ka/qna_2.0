@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-feature 'choosing best answers for question by different users', js: true do
+feature 'choosign best answers for question by different users', js: true do
   given(:user) { create :user }
   given(:admin) { create :user, :admin }
   given(:question) { create :question, user: user }
@@ -15,12 +15,12 @@ feature 'choosing best answers for question by different users', js: true do
   end
 
   scenario '- by user' do
-    sing_in_user user
+    sign_in_user user
     set_best
   end
 
-  scenario '- by user' do
-    sing_in_user admin
+  scenario '- by admin' do
+    sign_in_user admin
     set_best
   end
 end

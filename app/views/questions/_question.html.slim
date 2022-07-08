@@ -9,11 +9,34 @@ div class="#{dom_id(question)}"
     .row
       .col-12.mb-3
         span.bold = question.body
+    .row.mb-1
+      .col-4.pt-2
+        .votes
+          div class="vote-#{dom_id(question)}"
+            span = "Likes: #{question.likes}  |  Dislikes: #{question.dislikes}"
+    - if question.attachments.present?
+      .row.mb-1
+        .col-4.pt-2
+          .attachments
+          h4 Attachments
+          table.table.table-hover
+            tbody
+              - question.attachments.each do |attachment|
+                tr class="#{dom_id(attachment)}"
+                  td = link_to attachment.file.file.identifier, attachment.file.url
+                  td = link_to 'Delete', attachments_destroy_path(attachment_id: attachment),
+                          method: :delete, class: 'btn btn-danger btn-sm', remote: true
     .row
-      .col-6
+      .col
         = link_to 'Show', question_path(question),
-                class: 'btn btn-primary m-2'
+                class: 'btn btn-primary me-2'
         - if policy(question).edit?
-          = link_to 'Edit', edit_question_path(question), class: 'btn btn-secondary m-2', remote: true
+          = link_to 'Edit', edit_question_path(question), class: 'btn btn-secondary me-2', remote: true
         - if policy(question).destroy?
-          = link_to "Delete", question, class: 'btn btn-danger m-2', method: :delete, remote: true
+          = link_to 'Delete', question, class: 'btn btn-danger me-2', method: :delete, remote: true
+        -if policy(question).vote?
+          =link_to 'Like', vote_question_path(question, vote: {vote: :like, user_id: current_user}),
+                  method: :post, remote: true, class: 'btn btn-outline-success me-2'
+          = link_to 'Dislike', vote_question_path(question, vote: { vote: :dislike, user_id: current_user }),
+                  method: :post, remote: true, class: 'btn btn-outline-danger me-2'
+        

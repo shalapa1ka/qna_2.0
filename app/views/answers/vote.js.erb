@@ -1,0 +1,7 @@
+$('.flash').html('<%= j render partial: 'shared/flash' %>');
+$('.cancel-vote-button').html('<%=
+ if policy(@question).answer_cancel_vote?
+  link_to 'Cancel vote', cancel_vote_question_answers_path(@question),
+   class: 'btn btn-secondary my-2', method: :delete, remote: true
+ end %>');
+$('.answers').html('<%= j render partial: 'answers/answer', collection: @question.answers.order_best %>')

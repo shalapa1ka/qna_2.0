@@ -21,7 +21,15 @@ class QuestionPolicy < ApplicationPolicy
     true
   end
 
-  def set_best_answer?
-    user.admin? || user.author?(record)
+  def vote?
+    !user.author?(record) && !user.voted?(:Question)
+  end
+
+  def cancel_vote?
+    user.voted?(:Question)
+  end
+
+  def answer_cancel_vote?
+    user.voted?(:Answer, record.id)
   end
 end

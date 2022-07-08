@@ -3,6 +3,7 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+require("@nathanvda/cocoon")
 require("@popperjs/core")
 
 import "bootstrap"
