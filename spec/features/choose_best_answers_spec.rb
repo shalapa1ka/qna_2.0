@@ -19,7 +19,7 @@ feature 'choosign best answers for question by different users', js: true do
     set_best
   end
 
-  scenario '- by user' do
+  scenario '- by admin' do
     sign_in_user admin
     set_best
   end

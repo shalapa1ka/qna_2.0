@@ -6,7 +6,8 @@
   .form-floating.w-50.mt-2
     = form.fields_for :attachments do |task|
       // FIXME: Duplicated link
-      = link_to_add_association 'add task', form, :attachments, class: 'btn btn-secondary btn-sm my-1'
+      .links
+        = link_to_add_association 'add task', form, :attachments, class: 'btn btn-secondary btn-sm my-1'
 
   .form-floating.w-50.mt-2
     = form.submit nil, class: "btn btn-success mb-2"
