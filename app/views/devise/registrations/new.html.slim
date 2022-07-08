@@ -4,12 +4,10 @@ h2
   = render "devise/shared/error_messages", resource: resource
   .field
     = f.label :name
-  br
-    = f.text_field :name
+  = f.text_field :name
   br
   .field
     = f.label :email
-  br
   = f.email_field :email, autofocus: true, autocomplete: "email"
   .field
     = f.label :password
@@ -24,6 +22,11 @@ h2
     = f.label :password_confirmation
   br
   = f.password_field :password_confirmation, autocomplete: "new-password"
+  br
+  br
+  span Avatar
+  = f.file_field :avatar
+  br
   .actions
     = f.submit "Sign up"
 = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)

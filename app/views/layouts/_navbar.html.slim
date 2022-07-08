@@ -9,6 +9,7 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
           li.nav-item
             = link_to 'API', oauth_applications_path, class: 'nav-link'
       - if user_signed_in?
+        = image_tag current_user.avatar.thumb.url
         span.text-light.me-3 Hello, #{current_user.name}
         = link_to 'Sign out', destroy_user_session_path,
                         class: 'btn btn-outline-danger',

@@ -1,8 +1,8 @@
-require "application_responder"
-
 # frozen_string_literal: true
 
 require 'application_responder'
+
+# frozen_string_literal: true
 
 # frozen_string_literal: true
 
@@ -17,6 +17,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name avatar])
   end
 end

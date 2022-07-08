@@ -11,7 +11,34 @@ span = @question.body
     .cancel-vote-button
       - if policy(@question).answer_cancel_vote?
         = link_to 'Cancel vote', cancel_vote_question_answers_path(@question),
-                remote: true, method: :delete, class: 'btn btn-secondary my-2'
+                remote: false, method: :delete, class: 'btn btn-secondary my-2'
+
+.row
+  .col
+    .subscribe_update_btn
+      - if policy(@question).subscribe_update?
+        =link_to 'Subscribe to update this question', subscribe_update_question_path(@question),
+              remote: true, method: :post, class: 'btn btn-outline-primary my-2'
+.row
+  .col
+    .unsubscribe_update_btn
+      - if policy(@question).unsubscribe_update?
+        = link_to 'Unsubscribe to update this question', unsubscribe_update_question_path(@question),
+                remote: true, method: :patch, class: 'btn btn-outline-danger my-2'
+
+.row
+  .col
+    .subscribe_update_btn
+      - if policy(@question).subscribe_new_answer?
+        =link_to 'Subscribe to answer for this question', subscribe_new_answer_question_path(@question),
+                remote: true, method: :post, class: 'btn btn-outline-primary my-2'
+.row
+  .col
+    .unsubscribe_update_btn
+      - if policy(@question).unsubscribe_new_answer?
+        = link_to 'Unsubscribe to answer for this question', unsubscribe_new_answer_question_path(@question),
+                remote: true, method: :patch, class: 'btn btn-outline-danger my-2'
+
 .row
   .col
     = link_to 'Back to Questions', questions_path, class: 'btn btn-secondary m-2'

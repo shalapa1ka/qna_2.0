@@ -10,6 +10,7 @@ require 'faker'
 require 'devise'
 require 'capybara/rspec'
 require 'support/all_macros'
+require 'support/shared/api_authorization'
 require 'pundit/rspec'
 
 begin
@@ -24,6 +25,9 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
   config.include FactoryBot::Syntax::Methods
+  config.before(:suite) do
+    FactoryBot.find_definitions
+  end
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include AllMacros
 
