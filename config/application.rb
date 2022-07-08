@@ -12,5 +12,6 @@ module Stackoverflow20
     config.app_generators.scaffold_controller :responders_controller
 
     config.load_defaults 6.1
+    config.active_job.queue_adapter = :sidekiq
   end
 end

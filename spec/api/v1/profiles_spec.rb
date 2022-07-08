@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Profile API' do
@@ -9,7 +11,6 @@ describe 'Profile API' do
       it_behaves_like 'API Authenticable'
 
       context 'authorized' do
-
         before { do_request(access_token: access_token.token) }
 
         %w[id email created_at updated_at admin].each do |attr|

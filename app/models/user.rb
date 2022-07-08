@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :votes
+  has_many :subscriptions
   has_many :social_auths
   has_many :access_grants,
            class_name: 'Doorkeeper::AccessGrant',
@@ -49,6 +50,12 @@ class User < ApplicationRecord
     end
     user.social_auths.create(provider: access_token.provider, uid: access_token.uid)
     user
+  end
+
+  def self.send_daily_digest
+    find_each.each do |user|
+      DispatchMailer.digest(user).deliver_later
+    end
   end
 
   private

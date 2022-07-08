@@ -1,0 +1,8 @@
+p
+  | Hello!
+p
+  | We present to you - all the latest questions for the last 24 hours
+h3
+  | Questions
+  = @questions.each do |question|
+    = link_to question.title, question_path(question)
