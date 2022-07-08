@@ -9,7 +9,7 @@
     = form.label 'Tell about your question', for: 'floatingBody'
 
   .form-floating.w-50.mt-2
-    = form.fields_for :attachments do |task|
+    = form.fields_for :attachments, @question.attachments.build do |task|
       // FIXME: Duplicated link
       .links
         = link_to_add_association 'add task', form, :attachments, class: 'btn btn-secondary btn-sm my-1'

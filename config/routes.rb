@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :questions do
-
     member { post :vote }
     collection { delete :cancel_vote }
 
     resources :answers, except: :index do
-
       member do
         patch :set_best
         post :vote

@@ -35,11 +35,6 @@ describe AnswersController, type: :controller do
                                              question_id: question, user_id: user }
         end.to_not change(Answer, :count)
       end
-      it 're-render create view' do
-        post :create, xhr: true, params: { answer: attributes_for(:answer, body: ''),
-                                           question_id: question, user_id: user }
-        expect(request).to render_template :create
-      end
     end
   end
 
