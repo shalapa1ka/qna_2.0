@@ -72,8 +72,8 @@ class AnswersController < ApplicationController
   def render_answer
     AnswersController.renderer.instance_variable_set(
       :@env, {
-        'HTTP_HOST' => 'localhost:3000',
-        'HTTPS' => 'off',
+        'HTTP_HOST' => 'qna-popovych.herokuapp.com',
+        'HTTPS' => 'on',
         'REQUEST_METHOD' => 'GET',
         'SCRIPT_NAME' => '',
         'warden' => warden
