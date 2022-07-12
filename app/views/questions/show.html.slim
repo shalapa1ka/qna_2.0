@@ -17,8 +17,8 @@ span = @question.body
   .col
     .subscribe_update_btn
       - if policy(@question).subscribe_update?
-        =link_to 'Subscribe to update this question', subscribe_update_question_path(@question),
-              remote: true, method: :post, class: 'btn btn-outline-primary my-2'
+        = link_to 'Subscribe to update this question', subscribe_update_question_path(@question),
+                remote: true, method: :post, class: 'btn btn-outline-primary my-2'
 .row
   .col
     .unsubscribe_update_btn
@@ -30,7 +30,7 @@ span = @question.body
   .col
     .subscribe_update_btn
       - if policy(@question).subscribe_new_answer?
-        =link_to 'Subscribe to answer for this question', subscribe_new_answer_question_path(@question),
+        = link_to 'Subscribe to answer for this question', subscribe_new_answer_question_path(@question),
                 remote: true, method: :post, class: 'btn btn-outline-primary my-2'
 .row
   .col
@@ -48,5 +48,5 @@ span = @question.body
     h3 Answers
     == pagy_bootstrap_nav @pagy
     .answers
-      = render @answers.order_best
+      = render partial: 'answers/answer', collection: @answers.order_best, as: :answer, locals: { question: @question }
     == pagy_bootstrap_nav @pagy
