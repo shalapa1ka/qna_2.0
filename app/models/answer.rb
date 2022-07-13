@@ -11,7 +11,7 @@ class Answer < ApplicationRecord
 
   scope :order_best, -> { order(best: :desc) }
 
-  after_create :send_update_digest
+  after_create :send_new_answer_digest
 
   def likes
     votes.where(vote: :like).count
@@ -21,7 +21,7 @@ class Answer < ApplicationRecord
     votes.where(vote: :dislike).count
   end
 
-  def send_update_digest
+  def send_new_answer_digest
     question.subscriptions.where(new_answer: true).each do |sb|
       NewAnswerDigestJob.perform_later(sb.user, question)
     end

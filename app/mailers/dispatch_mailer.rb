@@ -10,11 +10,11 @@ class DispatchMailer < ApplicationMailer
 
   def update_question_digest(user, question)
     @question = question
-    mail to: user
+    mail to: user.email
   end
 
   def new_answer_digest(user, question)
     @question = question
-    mail to: user
+    mail to: user.email
   end
 end
